@@ -5,24 +5,24 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
   }
 
   body {
-    background-color: ${({ theme }) => theme.colors.background};
-    color: ${({ theme }) => theme.colors.text};
-    font-family: 'Inter', sans-serif;
+    background-color: #0f0f0f;
+    color: #ffffff;
     min-height: 100vh;
   }
 
-  a {
-    text-decoration: none;
-    color: inherit;
+  /* Scrollbar estilo OneFootball */
+  ::-webkit-scrollbar {
+    width: 8px;
   }
-
-  button {
-    cursor: pointer;
-    border: none;
-    background: none;
-    color: inherit;
+  ::-webkit-scrollbar-track {
+    background: #1e1e1e;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
   }
 `;

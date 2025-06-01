@@ -1,15 +1,17 @@
 export const darkTheme = {
   colors: {
-    background: '#121212',
-    primary: '#1E1E1E',
-    secondary: '#2A2A2A',
-    text: '#FFFFFF',
-    textSecondary: '#AAAAAA',
-    accent: '#00FF87',
-    danger: '#FF3A3A',
-    warning: '#FFC107',
-    info: '#2196F3',
+    primary: "#1a1a1a",
+    secondary: "#2d2d2d",
+    accent: "#00ff87", // Verde OneFootball
+    text: "#ffffff",
+    textSecondary: "#b3b3b3",
+    highlight: "#333333",
+    live: "#ff0033", // Vermelho para jogos ao vivo
   },
-  borderRadius: '8px',
-  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
+  shadows: {
+    card: "0 4px 12px rgba(0, 0, 0, 0.25)",
+  },
+  breakpoints: {
+    md: "768px",
+  },
 };

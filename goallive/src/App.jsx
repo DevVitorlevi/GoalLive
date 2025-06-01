@@ -1,8 +1,9 @@
 import { ThemeProvider } from 'styled-components';
-import { GlobalStyle } from './styles/globalStyles';
+import { GlobalStyle } from './styles/Global';
 import { darkTheme } from './styles/theme';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import Standings from './pages/Standings';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/tabela" element={<Standings />} />
       </Routes>
     </ThemeProvider>
   );
