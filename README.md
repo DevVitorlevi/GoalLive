@@ -54,3 +54,5 @@
 ```bash
 git clone https://github.com/seu-usuario/goallive.git
 cd goallive
+npm i
+npm run dev
