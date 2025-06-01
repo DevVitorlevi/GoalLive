@@ -1,63 +1,41 @@
 import styled from 'styled-components';
 
-export const HomeContainer = styled.main`
-  padding: 1rem;
-  max-width: 1400px;
+export const HomeContainer = styled.div`
+  padding: ${({ theme }) => theme.spacing.medium};
+  max-width: 1200px;
   margin: 0 auto;
 `;
 
 export const Header = styled.header`
-  margin-bottom: 2rem;
+  margin-bottom: ${({ theme }) => theme.spacing.large};
 `;
 
 export const Title = styled.h1`
-  color: ${({ theme }) => theme.colors.text};
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  margin: 0 0 ${({ theme }) => theme.spacing.small} 0;
 `;
 
 export const DateInfo = styled.p`
   color: ${({ theme }) => theme.colors.textSecondary};
-  font-size: 1rem;
+  font-size: 0.9rem;
+  margin: 0;
 `;
 
 export const FilterContainer = styled.div`
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  gap: ${({ theme }) => theme.spacing.small};
+  margin-bottom: ${({ theme }) => theme.spacing.medium};
   overflow-x: auto;
-  padding-bottom: 0.5rem;
-
-  &::-webkit-scrollbar {
-    height: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.colors.secondary};
-    border-radius: 2px;
-  }
+  padding-bottom: 4px;
 `;
 
 export const FilterButton = styled.button`
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  background: ${({ theme, $active }) => 
-    $active ? theme.colors.accent : theme.colors.secondary};
-  color: ${({ theme, $active }) => 
-    $active ? '#000' : theme.colors.text};
-  border: none;
+  padding: 6px 12px;
+  border: 1px solid #2A2A2A;
+  background: ${({ $active }) => $active ? '#2A2A2A' : 'transparent'};
+  color: white;
+  font-size: 0.8rem;
+  border-radius: 4px;
   cursor: pointer;
-  font-weight: ${({ $active }) => $active ? '600' : '400'};
   white-space: nowrap;
-  transition: all 0.2s;
-
-  &:hover {
-    opacity: 0.9;
-  }
-`;
-
-export const LoadingMessage = styled.div`
-  text-align: center;
-  padding: 2rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
 `;

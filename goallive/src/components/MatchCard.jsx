@@ -15,12 +15,11 @@ import {
 
 dayjs.locale('pt-br');
 
-export default function MatchCard({ match }) {
+export default function MatchCard({ match, leagueId }) {
     const {
         fixture,
         teams,
-        goals,
-        league
+        goals
     } = match;
 
     const isLive = fixture.status.short === 'LIVE';
@@ -40,9 +39,15 @@ export default function MatchCard({ match }) {
     };
 
     return (
-        <MatchCardContainer $isLive={isLive}>
-            <MatchStatus $isLive={isLive}>
-                {isLive ? 'AO VIVO' : league.name}
+        <MatchCardContainer
+            $isLive={isLive}
+            $leagueId={leagueId}
+        >
+            <MatchStatus
+                $isLive={isLive}
+                $leagueId={leagueId}
+            >
+                {isLive ? 'AO VIVO' : match.league.name}
             </MatchStatus>
 
             <TeamsContainer>
@@ -53,6 +58,7 @@ export default function MatchCard({ match }) {
                     />
                     <TeamName
                         $isWinner={getWinner() === 'home'}
+                        $leagueId={leagueId}
                     >
                         {teams.home.name}
                     </TeamName>
@@ -61,12 +67,12 @@ export default function MatchCard({ match }) {
                 <ScoreContainer>
                     {isLive || isFinished ? (
                         <>
-                            <Score>{goals.home}</Score>
-                            <Divider>-</Divider>
-                            <Score>{goals.away}</Score>
+                            <Score $leagueId={leagueId}>{goals.home}</Score>
+                            <Divider $leagueId={leagueId}>-</Divider>
+                            <Score $leagueId={leagueId}>{goals.away}</Score>
                         </>
                     ) : (
-                        <MatchTime>{getMatchStatus()}</MatchTime>
+                        <MatchTime $leagueId={leagueId}>{getMatchStatus()}</MatchTime>
                     )}
                 </ScoreContainer>
 
@@ -77,6 +83,7 @@ export default function MatchCard({ match }) {
                     />
                     <TeamName
                         $isWinner={getWinner() === 'away'}
+                        $leagueId={leagueId}
                     >
                         {teams.away.name}
                     </TeamName>

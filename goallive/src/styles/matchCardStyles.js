@@ -1,27 +1,16 @@
 import styled from 'styled-components';
 
 export const MatchCardContainer = styled.div`
-  background-color: ${({ theme }) => theme.colors.primary};
-  border-radius: ${({ theme }) => theme.borderRadius};
-  padding: 1rem;
-  transition: transform 0.2s, box-shadow 0.2s;
-  border-left: 4px solid ${({ theme, $isLive }) => 
-    $isLive ? theme.colors.accent : 'transparent'};
-
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-  }
+  padding: ${({ theme }) => theme.spacing.medium};
+  background-color: ${({ theme }) => theme.colors.cardBackground};
+  border-bottom: 1px solid #2A2A2A;
 `;
 
 export const MatchStatus = styled.div`
-  font-size: 0.75rem;
-  color: ${({ theme, $isLive }) => 
-    $isLive ? theme.colors.accent : theme.colors.textSecondary};
-  margin-bottom: 0.5rem;
+  font-size: 0.7rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  margin-bottom: ${({ theme }) => theme.spacing.small};
   text-transform: uppercase;
-  font-weight: bold;
-  letter-spacing: 0.5px;
 `;
 
 export const TeamsContainer = styled.div`
@@ -38,18 +27,15 @@ export const Team = styled.div`
 `;
 
 export const TeamBadge = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
-  margin-bottom: 0.5rem;
+  margin-bottom: 4px;
 `;
 
 export const TeamName = styled.span`
-  text-align: center;
   font-size: 0.9rem;
-  font-weight: ${({ $isWinner }) => $isWinner ? '600' : '400'};
-  color: ${({ theme, $isWinner }) => 
-    $isWinner ? theme.colors.text : theme.colors.textSecondary};
+  text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -59,15 +45,11 @@ export const TeamName = styled.span`
 export const ScoreContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  min-width: 20%;
+  gap: 8px;
 `;
 
 export const Score = styled.span`
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors.text};
+  font-size: 1.2rem;
 `;
 
 export const Divider = styled.span`
@@ -77,5 +59,4 @@ export const Divider = styled.span`
 export const MatchTime = styled.div`
   font-size: 0.9rem;
   color: ${({ theme }) => theme.colors.textSecondary};
-  text-align: center;
 `;

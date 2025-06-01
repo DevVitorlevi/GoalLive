@@ -1,23 +1,40 @@
 export const darkTheme = {
   colors: {
-    background: '#0F0F0F',
-    primary: '#1A1A1A',
-    secondary: '#2E2E2E',
+    background: '#121212',
+    cardBackground: '#1E1E1E',
     text: '#FFFFFF',
-    textSecondary: '#A0A0A0',
-    accent: '#00FF87',
-    danger: '#FF3A3A',
-    warning: '#FFC107',
-    info: '#2196F3',
-    premierLeague: '#3D195B',
-    brasileirao: '#00A859',
-    championsLeague: '#0657B1',
-    libertadores: '#FFD100'
+    textSecondary: '#B0B0B0',
+    
+    // Cores das competições (mantidas conforme sua tabela)
+    leagueColors: {
+      2: '#1A1A4B',   // Champions League
+      3: '#000000',    // Europa League
+      4: '#000000',    // Conference League
+      5: '#000000',    // Libertadores
+      6: '#002664',    // Sul-Americana
+      16: '#002664',   // Sul-Americana (alternativo)
+      1: '#004AAD',    // Mundial
+      602: '#002664',  // Recopa
+      71: '#009C3B',   // Brasileirão A
+      72: '#006400',   // Brasileirão B
+      667: '#1C7A44',  // Copa do Brasil
+      39: '#37003C',   // Premier League
+      13: '#37003C',   // Premier League (alternativo)
+      78: '#E30613',   // Bundesliga
+      61: '#00285E',   // Ligue 1
+      135: '#007FFF',  // Serie A
+      140: '#3B0A45',  // La Liga
+      128: '#000000',  // Liga Portugal
+      81: '#003087',   // Eredivisie
+      94: '#00B3E3',   // Liga Argentina
+      262: '#E60026',  // Chileno
+      203: '#DA291C',  // MLS
+      253: '#BC002D'   // J1 League
+    }
   },
-  borderRadius: '12px',
-  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
-  breakpoints: {
-    md: '768px',
-    lg: '1024px'
+  spacing: {
+    small: '8px',
+    medium: '16px',
+    large: '24px'
   }
 };
