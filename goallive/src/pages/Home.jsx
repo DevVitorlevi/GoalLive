@@ -1,12 +1,19 @@
 import { useState, useEffect } from 'react';
+import dayjs from 'dayjs';
+import 'dayjs/locale/pt-br';
 import LeagueSection from '../components/LeagueSection';
 import { getMatches } from '../services/api';
 import {
     HomeContainer,
+    Header,
     Title,
-    Filters,
-    FilterButton
+    DateInfo,
+    FilterContainer,
+    FilterButton,
+    LoadingMessage
 } from '../styles/HomeStyles';
+
+dayjs.locale('pt-br');
 
 export default function Home() {
     const [matches, setMatches] = useState([]);
@@ -35,7 +42,6 @@ export default function Home() {
         return true;
     });
 
-    // Agrupa as partidas por liga
     const matchesByLeague = filteredMatches.reduce((acc, match) => {
         const leagueId = match.league.id;
         if (!acc[leagueId]) {
@@ -48,13 +54,22 @@ export default function Home() {
         return acc;
     }, {});
 
-    if (loading) return <div>Carregando...</div>;
+    const today = dayjs().format('dddd, D [de] MMMM [de] YYYY');
+
+    if (loading) return (
+        <LoadingMessage>
+            Carregando partidas...
+        </LoadingMessage>
+    );
 
     return (
         <HomeContainer>
-            <Title>GOALLIVE - Partidas em Tempo Real</Title>
+            <Header>
+                <Title>GOALLIVE</Title>
+                <DateInfo>Hoje, {today}</DateInfo>
+            </Header>
 
-            <Filters>
+            <FilterContainer>
                 <FilterButton
                     $active={filter === 'all'}
                     onClick={() => setFilter('all')}
@@ -79,18 +94,20 @@ export default function Home() {
                 >
                     Futuras
                 </FilterButton>
-            </Filters>
+            </FilterContainer>
 
             {Object.values(matchesByLeague).length > 0 ? (
-                Object.values(matchesByLeague).map(({ league, matches }) => (
-                    <LeagueSection
-                        key={league.id}
-                        league={league}
-                        matches={matches}
-                    />
-                ))
+                Object.values(matchesByLeague)
+                    .sort((a, b) => b.matches.length - a.matches.length)
+                    .map(({ league, matches }) => (
+                        <LeagueSection
+                            key={league.id}
+                            league={league}
+                            matches={matches}
+                        />
+                    ))
             ) : (
-                <div>Nenhuma partida encontrada</div>
+                <LoadingMessage>Nenhuma partida encontrada</LoadingMessage>
             )}
         </HomeContainer>
     );

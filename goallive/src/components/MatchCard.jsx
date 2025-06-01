@@ -5,16 +5,22 @@ import {
     MatchStatus,
     TeamsContainer,
     Team,
+    TeamBadge,
     TeamName,
+    ScoreContainer,
     Score,
-    Time
+    Divider,
+    MatchTime
 } from '../styles/matchCardStyles';
+
+dayjs.locale('pt-br');
 
 export default function MatchCard({ match }) {
     const {
         fixture,
         teams,
-        goals
+        goals,
+        league
     } = match;
 
     const isLive = fixture.status.short === 'LIVE';
@@ -26,40 +32,54 @@ export default function MatchCard({ match }) {
         return dayjs(fixture.date).format('HH:mm');
     };
 
+    const getWinner = () => {
+        if (!isFinished) return null;
+        if (goals.home > goals.away) return 'home';
+        if (goals.away > goals.home) return 'away';
+        return 'draw';
+    };
+
     return (
-        <MatchCardContainer>
+        <MatchCardContainer $isLive={isLive}>
+            <MatchStatus $isLive={isLive}>
+                {isLive ? 'AO VIVO' : league.name}
+            </MatchStatus>
+
             <TeamsContainer>
                 <Team>
-                    <img
+                    <TeamBadge
                         src={teams.home.logo}
                         alt={teams.home.name}
-                        width="40"
-                        height="40"
                     />
-                    <TeamName>{teams.home.name}</TeamName>
+                    <TeamName
+                        $isWinner={getWinner() === 'home'}
+                    >
+                        {teams.home.name}
+                    </TeamName>
                 </Team>
 
-                <Score>
+                <ScoreContainer>
                     {isLive || isFinished ? (
                         <>
-                            <span>{goals.home}</span>
-                            <Time> - </Time>
-                            <span>{goals.away}</span>
-                            {isLive && <MatchStatus>AO VIVO</MatchStatus>}
+                            <Score>{goals.home}</Score>
+                            <Divider>-</Divider>
+                            <Score>{goals.away}</Score>
                         </>
                     ) : (
-                        <Time>{getMatchStatus()}</Time>
+                        <MatchTime>{getMatchStatus()}</MatchTime>
                     )}
-                </Score>
+                </ScoreContainer>
 
                 <Team>
-                    <img
+                    <TeamBadge
                         src={teams.away.logo}
                         alt={teams.away.name}
-                        width="40"
-                        height="40"
                     />
-                    <TeamName>{teams.away.name}</TeamName>
+                    <TeamName
+                        $isWinner={getWinner() === 'away'}
+                    >
+                        {teams.away.name}
+                    </TeamName>
                 </Team>
             </TeamsContainer>
         </MatchCardContainer>

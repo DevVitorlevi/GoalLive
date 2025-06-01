@@ -1,17 +1,23 @@
 export const darkTheme = {
   colors: {
-    primary: "#1a1a1a",
-    secondary: "#2d2d2d",
-    accent: "#00ff87", // Verde OneFootball
-    text: "#ffffff",
-    textSecondary: "#b3b3b3",
-    highlight: "#333333",
-    live: "#ff0033", // Vermelho para jogos ao vivo
+    background: '#0F0F0F',
+    primary: '#1A1A1A',
+    secondary: '#2E2E2E',
+    text: '#FFFFFF',
+    textSecondary: '#A0A0A0',
+    accent: '#00FF87',
+    danger: '#FF3A3A',
+    warning: '#FFC107',
+    info: '#2196F3',
+    premierLeague: '#3D195B',
+    brasileirao: '#00A859',
+    championsLeague: '#0657B1',
+    libertadores: '#FFD100'
   },
-  shadows: {
-    card: "0 4px 12px rgba(0, 0, 0, 0.25)",
-  },
+  borderRadius: '12px',
+  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
   breakpoints: {
-    md: "768px",
-  },
+    md: '768px',
+    lg: '1024px'
+  }
 };
