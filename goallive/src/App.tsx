@@ -1,13 +1,19 @@
-import { GlobalStyle } from './styles/global';
-import { ThemeProvider } from './context/ThemeContext';
-import { Router } from './routes/index';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { GlobalStyle } from "./styles/global";
+import Home from "./pages/Home";
+import Table from "./pages/Table";
 
 function App() {
   return (
-    <ThemeProvider>
+    <>
       <GlobalStyle />
-      <Router />
-    </ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/table/:championshipId" element={<Table />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

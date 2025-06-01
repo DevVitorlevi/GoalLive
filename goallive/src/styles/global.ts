@@ -1,21 +1,17 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-  }
-
   body {
-    background: ${({ theme }) => theme.colors.background};
-    color: ${({ theme }) => theme.colors.text};
-    transition: all 0.3s ease-in-out;
+    margin: 0;
+    background-color: #000;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
-
   a {
+    color: #1e90ff;
     text-decoration: none;
-    color: ${({ theme }) => theme.colors.primary};
+  }
+  a:hover {
+    text-decoration: underline;
   }
 `;
