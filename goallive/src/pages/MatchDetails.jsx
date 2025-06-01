@@ -22,12 +22,12 @@ import { MatchEvents } from '../components/MatchEvents';
 import { LoadingSpinner } from '../components/Loading';
 import dayjs from 'dayjs';
 import {
-    IconBallFootball,      // Bola de futebol
-    IconUser,              // Árbitro (substitui FaUserTie)
-    IconCloud,             // Clima (substitui FaCloudSun)
-    IconStar,              // Estádio (substitui FaStar)
-    IconShirt,             // Jogadores (substitui FaSubway)
-    IconCards,             // Cartões
+    IconBallFootball,
+    IconUser,
+    IconCloud,
+    IconStar,
+    IconShirt,
+    IconCards,
 } from '@tabler/icons-react';
 
 import { IoMdRefresh } from 'react-icons/io';
