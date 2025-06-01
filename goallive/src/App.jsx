@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { MatchDetails } from './pages/MatchDetails';
-import { Header } from './components/common/Header';
+import { Header } from './components/Header';
 import { AppContainer } from './styles/app';
 import { GlobalStyle } from './styles/Global';
 
