@@ -39,3 +39,9 @@ export const FilterButton = styled.button`
   cursor: pointer;
   white-space: nowrap;
 `;
+export const LoadingMessage = styled.div`
+  text-align: center;
+  padding: 2rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  font-size: 0.9rem;
+`;
