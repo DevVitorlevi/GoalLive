@@ -1,20 +1,18 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { GlobalStyle } from "./styles/global";
-import Home from "./pages/Home";
-import Table from "./pages/Table";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Games from "./pages/Games";
+import Standings from "./pages/Standings";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <>
-      <GlobalStyle />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/table/:championshipId" element={<Table />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/games" replace />} />
+        <Route path="/games" element={<Games />} />
+        <Route path="/standings/:leagueId" element={<Standings />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
