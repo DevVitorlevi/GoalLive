@@ -6,14 +6,14 @@ import {
     getMatchEvents,
     getMatchLineups
 } from '../../services/matchesService';
-import { COMPETITIONS } from '../../utils/competitions';
-import MatchHeader from '../../components/matchDetails/MatchHeader/MatchHeader';
+import { COMPETITIONS } from '../../utils/competions';
+import MatchHeader from '../../components/MatchDetails/MatchHeader/MatchHeader';
 import MatchStats from '../../components/MatchDetails/MatchStats/MatchStats';
 import Lineups from '../../components/MatchDetails/Lineups/Lineups';
-import EventsTimeline from '../../components/matchDetails/EventsTimeline/';
+import EventsTimeline from '../../components/MatchDetails/EventsTimeline/EventsTimeline';
 import Loading from '../../components/common/Loading/Loading';
-import Error from '../../components/common/Error/ErrorStyle';
-import { MatchDetailsContainer, MatchTabs, Tab } from './MatchDetails.styles';
+import Error from '../../components/common/Error/Error';
+import { MatchDetailsContainer, MatchTabs, Tab } from './MatchDetailsStyle';
 
 const MatchDetails = () => {
     const { id } = useParams();

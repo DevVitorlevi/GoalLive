@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
+import { ErrorContainer, ErrorIcon } from './ErrorStyle';
 
-const Errora = () => {
+const Error = ({ message = 'Ocorreu um erro' }) => {
     return (
-        <div>Errora</div>
-    )
-}
+        <ErrorContainer>
+            <ErrorIcon>⚠️</ErrorIcon>
+            <p>{message}</p>
+        </ErrorContainer>
+    );
+};
 
-export default Errora
+export default Error;

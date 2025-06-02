@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
+import { Spinner, LoadingContainer } from './LoadingStyle';
 
 const Loading = () => {
     return (
-        <div>Loading</div>
-    )
-}
+        <LoadingContainer>
+            <Spinner />
+            <span>Carregando...</span>
+        </LoadingContainer>
+    );
+};
 
-export default Loading
+export default Loading;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HeaderContainer, Logo, Nav } from './Header';
+import { HeaderContainer, Logo, Nav } from './HeaderStyle';
 
 const Header = () => {
     const navigate = useNavigate();

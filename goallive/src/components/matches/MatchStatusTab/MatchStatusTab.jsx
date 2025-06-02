@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabsContainer, Tab } from './MatchStatusTab';
+import { TabsContainer, Tab } from './MatchStatusTabStyle';
 
 const MatchStatusTabs = ({ activeTab, setActiveTab }) => {
     const tabs = [

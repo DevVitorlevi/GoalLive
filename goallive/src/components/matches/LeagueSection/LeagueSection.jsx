@@ -7,7 +7,7 @@ import {
     LeagueCountry,
     LeagueRound,
     MatchesGrid
-} from './LeagueSection.styles';
+} from './LeagueSectionStyle';
 
 const LeagueSection = ({ league, matches }) => {
     return (

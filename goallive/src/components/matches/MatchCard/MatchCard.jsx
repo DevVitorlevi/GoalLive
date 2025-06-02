@@ -8,7 +8,7 @@ import {
     TeamName,
     ScoreContainer,
     MatchStatus
-} from './MatchCard';
+} from './MatchCardStyle';
 
 const MatchCard = ({ match }) => {
     const navigate = useNavigate();

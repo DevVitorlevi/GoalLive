@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { getTodayMatches } from '../../services/matchesService';
-import { ALLOWED_COMPETITION_IDS, COMPETITIONS } from '../../utils/competitions';
-import MatchStatusTabs from '../../components/matches/MatchStatusTabs/MatchStatusTabs';
+import { ALLOWED_COMPETITION_IDS, COMPETITIONS } from '../../utils/competions';
+import MatchStatusTabs from '../../components/matches/MatchStatusTab/MatchStatusTab';
 import CompetitionFilter from '../../components/matches/CompetitionFilter/CompetitionFilter';
 import LeagueSection from '../../components/matches/LeagueSection/LeagueSection';
 import Loading from '../../components/common/Loading/Loading';
-import Error from '../../components/common/Error/ErrorStyle';
-import { HomeContainer, HomeContent } from './Home.styles';
+import Error from '../../components/common/Error/Error';
+import { HomeContainer, HomeContent } from './HomeStyle';
 
 const Home = () => {
     const [matches, setMatches] = useState([]);
