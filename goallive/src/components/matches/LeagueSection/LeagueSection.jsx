@@ -1,20 +1,30 @@
 import React from 'react';
-import MatchCard from '../MatchCard/MatchCard.jsx';
-import { LeagueSectionContainer, LeagueHeader, LeagueName, LeagueRound, MatchesGrid } from './LeagueSection';
+import MatchCard from '../MatchCard/MatchCard';
+import {
+    LeagueSectionContainer,
+    LeagueHeader,
+    LeagueName,
+    LeagueCountry,
+    LeagueRound,
+    MatchesGrid
+} from './LeagueSection.styles';
 
 const LeagueSection = ({ league, matches }) => {
     return (
-        <LeagueSectionContainer>
+        <LeagueSectionContainer $priority={league.priority}>
             <LeagueHeader>
-                <LeagueName>
-                    <img src={league.logo} alt={league.name} width="24" height="24" />
-                    <span>{league.name}</span>
-                </LeagueName>
+                <div>
+                    <LeagueName>
+                        {league.logo && <img src={league.logo} alt={league.name} width="24" height="24" />}
+                        <span>{league.name}</span>
+                    </LeagueName>
+                    <LeagueCountry>{league.country}</LeagueCountry>
+                </div>
                 <LeagueRound>{league.round}</LeagueRound>
             </LeagueHeader>
 
             <MatchesGrid>
-                {matches.map((match) => (
+                {matches.map(match => (
                     <MatchCard key={match.fixture.id} match={match} />
                 ))}
             </MatchesGrid>

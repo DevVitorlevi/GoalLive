@@ -12,16 +12,20 @@ export const getTodayMatches = async () => {
       },
     });
     
-    // Filtrar apenas os campeonatos permitidos
     return response.data.response.filter(match => 
       ALLOWED_COMPETITION_IDS.includes(match.league.id)
-    );
+      .sort((a, b) => {
+        // Ordenar por prioridade do campeonato e depois por horário
+        const priorityA = COMPETITIONS[a.league.id].priority;
+        const priorityB = COMPETITIONS[b.league.id].priority;
+        if (priorityA !== priorityB) return priorityA - priorityB;
+        return new Date(a.fixture.date) - new Date(b.fixture.date);
+      }));
   } catch (error) {
     console.error('Error fetching today matches:', error);
     throw error;
   }
 };
-
 export const getMatchDetails = async (matchId) => {
   try {
     const response = await api.get('/fixtures', {
@@ -29,13 +33,13 @@ export const getMatchDetails = async (matchId) => {
         id: matchId,
       },
     });
-    return response.data.response[0];
+    const match = response.data.response[0];
+    return ALLOWED_COMPETITION_IDS.includes(match.league.id) ? match : null;
   } catch (error) {
     console.error('Error fetching match details:', error);
     throw error;
   }
 };
-
 export const getMatchStatistics = async (matchId) => {
   try {
     const response = await api.get('/fixtures/statistics', {
