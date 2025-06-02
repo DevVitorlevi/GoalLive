@@ -1,3 +1,4 @@
+// src/components/MatchEvents.jsx
 import React from 'react';
 import { EventItem, EventsContainer, EventTime, EventType } from '../styles/MatchEvents';
 import {
@@ -8,18 +9,13 @@ import {
 } from '@tabler/icons-react';
 
 const getEventIcon = (type) => {
-    switch (type) {
-        case 'GOAL':
-            return <IconBallFootball color="#00ff87" size={20} />;
-        case 'SUBSTITUTION':
-            return <IconRefresh color="#f5f5f5" size={20} />;
-        case 'YELLOW_CARD':
-            return <IconCards color="#ffcc00" size={20} />;
-        case 'RED_CARD':
-            return <IconCardboards color="#ff3333" size={20} />;
-        default:
-            return null;
-    }
+    const eventType = type.toLowerCase();
+
+    if (eventType.includes('goal')) return <IconBallFootball color="#00ff87" size={20} />;
+    if (eventType.includes('subst')) return <IconRefresh color="#f5f5f5" size={20} />;
+    if (eventType.includes('yellow')) return <IconCards color="#ffcc00" size={20} />;
+    if (eventType.includes('red')) return <IconCardboards color="#ff3333" size={20} />;
+    return null;
 };
 
 export const MatchEvents = ({ events }) => {
@@ -29,13 +25,13 @@ export const MatchEvents = ({ events }) => {
 
     return (
         <EventsContainer>
-            {events.map(event => (
-                <EventItem key={event.id} type={event.type}>
-                    <EventTime>{event.time}'</EventTime>
+            {events.map((event, index) => (
+                <EventItem key={index} type={event.type}>
+                    <EventTime>{event.time.elapsed}'{event.time.extra ? `+${event.time.extra}` : ''}</EventTime>
                     <EventType>
                         {getEventIcon(event.type)}
                         <span>{event.player.name}</span>
-                        {event.assist && <small>(Assistência: {event.assist.name})</small>}
+                        {event.assist?.name && <small>(Assistência: {event.assist.name})</small>}
                     </EventType>
                     <div>{event.team.name}</div>
                 </EventItem>

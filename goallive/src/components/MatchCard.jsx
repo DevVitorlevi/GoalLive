@@ -1,3 +1,4 @@
+// src/components/MatchCard.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MatchCardContainer, Teams, Team, Score, MatchTime, CompetitionInfo } from '../styles/MatchCard';
@@ -11,10 +12,10 @@ export const MatchCard = ({ match }) => {
     };
 
     const getMatchStatus = () => {
-        if (match.status === 'IN_PLAY') return `${match.minute}'`;
-        if (match.status === 'PAUSED') return 'Intervalo';
-        if (match.status === 'FINISHED') return 'Encerrado';
-        return dayjs(match.utcDate).format('HH:mm');
+        if (['1H', '2H', 'HT'].includes(match.status)) return `${match.minute}'`;
+        if (match.status === 'HT') return 'Intervalo';
+        if (['FT', 'AET', 'PEN'].includes(match.status)) return 'Encerrado';
+        return dayjs(match.date).format('HH:mm');
     };
 
     return (
@@ -38,7 +39,7 @@ export const MatchCard = ({ match }) => {
                 </Team>
 
                 <Score>
-                    {match.score?.fullTime.home !== null ? (
+                    {match.score.fullTime.home !== null ? (
                         <>
                             <span>{match.score.fullTime.home}</span>
                             <span>:</span>

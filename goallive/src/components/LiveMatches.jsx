@@ -1,4 +1,4 @@
-
+// src/components/LiveMatches.jsx
 import { MatchCard } from '../components/MatchCard';
 import { LiveMatchesContainer, SectionTitle, MatchesGrid } from '../styles/LiveMatches';
 
@@ -9,12 +9,12 @@ const groupMatchesByStatus = (matches) => {
         finished: []
     };
 
-    matches?.matches?.forEach(match => {
-        if (match.status === 'IN_PLAY' || match.status === 'PAUSED') {
+    matches?.forEach(match => {
+        if (match.status === '1H' || match.status === '2H' || match.status === 'HT') {
             grouped.live.push(match);
-        } else if (match.status === 'SCHEDULED') {
+        } else if (match.status === 'NS') {
             grouped.scheduled.push(match);
-        } else if (match.status === 'FINISHED') {
+        } else if (match.status === 'FT' || match.status === 'AET' || match.status === 'PEN') {
             grouped.finished.push(match);
         }
     });

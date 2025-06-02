@@ -5,6 +5,7 @@ export const MatchFilters = ({ matches, onFilter }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [activeFilter, setActiveFilter] = useState('all');
 
+    // Extrai competições únicas
     const competitions = [...new Set(matches?.matches?.map(match => match.competition.name))];
 
     const handleFilter = (type) => {
@@ -54,7 +55,10 @@ export const MatchFilters = ({ matches, onFilter }) => {
                     value={searchTerm}
                     onChange={handleSearch}
                 />
-                <select onChange={(e) => handleFilter(e.target.value)}>
+                <select
+                    value={activeFilter}
+                    onChange={(e) => handleFilter(e.target.value)}
+                >
                     <option value="all">Todas Competições</option>
                     {competitions.map(comp => (
                         <option key={comp} value={comp}>{comp}</option>
