@@ -1,12 +1,10 @@
+// src/services/api.js
 import axios from 'axios';
 
-const API_KEY = '69e8cbbede3c4f0c86c69b5e2fb899c0'; 
-const BASE_URL = 'https://api.football-data.org/v4';
-
 export const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: 'http://localhost:3001/api', // Proxy local
   headers: {
-    'X-Auth-Token': API_KEY,
     'Content-Type': 'application/json',
   },
+  withCredentials: false
 });
