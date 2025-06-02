@@ -5,7 +5,7 @@ import MatchStatusTabs from '../../components/matches/MatchStatusTabs/MatchStatu
 import CompetitionFilter from '../../components/matches/CompetitionFilter/CompetitionFilter';
 import LeagueSection from '../../components/matches/LeagueSection/LeagueSection';
 import Loading from '../../components/common/Loading/Loading';
-import Error from '../../components/common/Error/Error';
+import Error from '../../components/common/Error/ErrorStyle';
 import { HomeContainer, HomeContent } from './Home.styles';
 
 const Home = () => {
