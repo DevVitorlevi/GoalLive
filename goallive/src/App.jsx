@@ -1,23 +1,25 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Home } from './pages/Home';
-import { MatchDetails } from './pages/MatchDetails';
-import { Header } from './components/Header';
-import { AppContainer } from './styles/app';
-import { GlobalStyle } from './styles/Global';
+import { ThemeProvider } from 'styled-components';
+import { darkTheme, GlobalStyle } from './assets/styles/globalStyles';
+import Home from './pages/Home/Home.jsx';
+import MatchDetails from './pages/MatchDetails/MatchDetails.jsx';
+import NotFound from './pages/NotFound/NotFound.jsx';
+import Header from './components/common/Header/Header.jsx';
 
 function App() {
   return (
-    <Router>
+    <ThemeProvider theme={darkTheme}>
       <GlobalStyle />
-      <AppContainer>
+      <Router>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/estatisticas/:matchId" element={<MatchDetails />} />
+          <Route path="/match/:id" element={<MatchDetails />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
-      </AppContainer>
-    </Router>
+      </Router>
+    </ThemeProvider>
   );
 }
 
