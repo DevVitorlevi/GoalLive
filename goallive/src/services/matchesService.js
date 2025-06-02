@@ -1,5 +1,7 @@
+
 import api from './api';
 import dayjs from 'dayjs';
+import { ALLOWED_COMPETITION_IDS } from '../utils/competions';
 
 export const getTodayMatches = async () => {
   const today = dayjs().format('YYYY-MM-DD');
@@ -9,7 +11,11 @@ export const getTodayMatches = async () => {
         date: today,
       },
     });
-    return response.data.response;
+    
+    // Filtrar apenas os campeonatos permitidos
+    return response.data.response.filter(match => 
+      ALLOWED_COMPETITION_IDS.includes(match.league.id)
+    );
   } catch (error) {
     console.error('Error fetching today matches:', error);
     throw error;
