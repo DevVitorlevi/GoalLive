@@ -35,17 +35,26 @@ const MatchDetails = () => {
                     getMatchLineups(id)
                 ]);
 
-                if (!matchData || !COMPETITIONS[matchData.league.id]) {
-                    throw new Error('Partida não encontrada ou não suportada');
+                // Verificação adicional dos dados
+                if (!matchData || !statsData || !lineupsData) {
+                    throw new Error('Dados incompletos da partida');
                 }
 
                 setMatch(matchData);
                 setStats(statsData);
                 setEvents(eventsData);
-                setLineups(lineupsData);
+
+                // Garantir que as escalações tenham a estrutura correta
+                const formattedLineups = lineupsData.map(team => ({
+                    ...team,
+                    startXI: team.startXI || [],
+                    substitutes: team.substitutes || []
+                }));
+
+                setLineups(formattedLineups);
                 setLoading(false);
-            } catch (err) {
-                setError(err.message);
+            } catch (error) {
+                setError(error.message);
                 setLoading(false);
             }
         };

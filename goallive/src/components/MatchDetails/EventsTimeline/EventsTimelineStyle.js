@@ -46,3 +46,8 @@ export const EventPlayer = styled.span`
   font-weight: 600;
   font-size: 0.9rem;
 `;
+export const NoEventsMessage = styled.div`
+  text-align: center;
+  padding: ${({ theme }) => theme.spacing.lg};
+  color: ${({ theme }) => theme.colors.textSecondary};
+`;

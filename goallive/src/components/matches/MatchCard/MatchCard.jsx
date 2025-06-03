@@ -13,17 +13,21 @@ import {
 const MatchCard = ({ match }) => {
     const navigate = useNavigate();
     const { fixture, teams, goals } = match;
-    const isLive = fixture.status.short === 'LIVE' || fixture.status.short === 'HT';
-    const isFinished = fixture.status.short === 'FT';
+    const isLive = ['LIVE', 'HT', 'ET', 'PEN'].includes(fixture.status.short);
+    const isFinished = ['FT', 'AET', 'PEN'].includes(fixture.status.short);
 
     const handleCardClick = () => {
         navigate(`/match/${fixture.id}`);
     };
 
     const getMatchStatus = () => {
-        if (fixture.status.short === 'LIVE') return `${fixture.status.elapsed}'`;
-        if (fixture.status.short === 'HT') return 'HT';
-        if (fixture.status.short === 'FT') return 'FT';
+        if (isLive) {
+            if (fixture.status.short === 'HT') return 'Intervalo';
+            if (fixture.status.short === 'ET') return 'Prorrogação';
+            if (fixture.status.short === 'PEN') return 'Pênaltis';
+            return `${fixture.status.elapsed}'`;
+        }
+        if (isFinished) return 'Encerrado';
         return dayjs(fixture.date).format('HH:mm');
     };
 

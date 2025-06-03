@@ -7,24 +7,37 @@ import {
     PlayersGrid,
     Player,
     PlayerName,
-    Coach
+    PlayerPosition,
+    Coach,
+    NoLineupMessage,
+    SectionTitle
 } from './LineupsStyle';
 
+const POSITION_TRANSLATION = {
+    'G': 'GOL',
+    'D': 'DEF',
+    'M': 'MEI',
+    'F': 'ATA'
+};
+
 const Lineups = ({ lineups }) => {
-    if (!lineups || lineups.length === 0) {
-        return <div>Escalações não disponíveis</div>;
+    if (!lineups || lineups.length !== 2 || !lineups.every(l => l.startXI && l.substitutes)) {
+        return <NoLineupMessage>Escalações não disponíveis para esta partida</NoLineupMessage>;
     }
 
-    const renderPlayers = (players, isStarting) => {
-        return players
-            .filter(player => player.grid === (isStarting ? 'starting_grids' : 'substitutes'))
-            .map(player => (
-                <Player key={player.player.id}>
-                    <span>{player.player.number}</span>
-                    <PlayerName>{player.player.name}</PlayerName>
-                </Player>
-            ));
-    };
+    const renderPlayer = (player) => (
+        <Player key={player.player.id}>
+            <PlayerName>
+                <span className="number">{player.player.number || '-'}</span>
+                {player.player.name}
+            </PlayerName>
+            {player.player.pos && (
+                <PlayerPosition>
+                    {POSITION_TRANSLATION[player.player.pos] || player.player.pos}
+                </PlayerPosition>
+            )}
+        </Player>
+    );
 
     return (
         <LineupsContainer>
@@ -35,21 +48,23 @@ const Lineups = ({ lineups }) => {
                         <span>{team.team.name}</span>
                     </TeamName>
 
-                    <Formation>Formação: {team.formation}</Formation>
+                    <Formation>Formação: {team.formation || 'Não informada'}</Formation>
 
-                    <h4>Titulares</h4>
+                    <SectionTitle>Titulares</SectionTitle>
                     <PlayersGrid>
-                        {renderPlayers(team.startXI, true)}
+                        {team.startXI.map(renderPlayer)}
                     </PlayersGrid>
 
-                    <h4>Reservas</h4>
+                    <SectionTitle>Reservas</SectionTitle>
                     <PlayersGrid>
-                        {renderPlayers(team.substitutes, false)}
+                        {team.substitutes.map(renderPlayer)}
                     </PlayersGrid>
 
-                    <Coach>
-                        <strong>Treinador:</strong> {team.coach.name}
-                    </Coach>
+                    {team.coach && (
+                        <Coach>
+                            <strong>Treinador:</strong> {team.coach.name}
+                        </Coach>
+                    )}
                 </TeamLineup>
             ))}
         </LineupsContainer>

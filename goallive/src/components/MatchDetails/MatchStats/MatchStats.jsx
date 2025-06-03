@@ -4,48 +4,60 @@ import {
     StatRow,
     StatName,
     StatValue,
-    StatBar
+    StatBar,
+    NoStatsMessage
 } from './MatchStatsStyle';
 
+const STATS_CONFIG = [
+    { key: 'ball_possession', name: 'Posse de Bola', isPercentage: true },
+    { key: 'total_shots', name: 'Finalizações' },
+    { key: 'shots_on_goal', name: 'Finalizações no Gol' },
+    { key: 'shots_off_goal', name: 'Finalizações para Fora' },
+    { key: 'shots_blocked', name: 'Finalizações Bloqueadas' },
+    { key: 'corner_kicks', name: 'Escanteios' },
+    { key: 'fouls', name: 'Faltas' },
+    { key: 'yellow_cards', name: 'Cartões Amarelos' },
+    { key: 'red_cards', name: 'Cartões Vermelhos' }
+];
+
 const MatchStats = ({ stats }) => {
-    if (!stats || stats.length === 0) {
-        return <div>Estatísticas não disponíveis</div>;
+    if (!stats || stats.length !== 2 || !stats[0].statistics || !stats[1].statistics) {
+        return <NoStatsMessage>Estatísticas não disponíveis para esta partida</NoStatsMessage>;
     }
 
-    const getStatValue = (team, statName) => {
-        const stat = stats.find(s => s.team.id === team)?.statistics;
-        return stat?.find(s => s.type === statName)?.value || '0';
+    const getStatValue = (teamStats, statKey) => {
+        const stat = teamStats.statistics.find(s => s.type === statKey);
+        if (!stat) return '0';
+        return stat.value;
     };
 
-    const statsToShow = [
-        { name: 'Posse de Bola', key: 'ball_possession' },
-        { name: 'Finalizações', key: 'total_shots' },
-        { name: 'Finalizações no Gol', key: 'shots_on_goal' },
-        { name: 'Escanteios', key: 'corner_kicks' },
-        { name: 'Faltas', key: 'fouls' },
-        { name: 'Cartões Amarelos', key: 'yellow_cards' },
-        { name: 'Cartões Vermelhos', key: 'red_cards' },
-    ];
+    const [homeStats, awayStats] = stats;
 
     return (
         <StatsContainer>
-            {statsToShow.map((stat) => {
-                const homeValue = getStatValue(stats[0].team.id, stat.key);
-                const awayValue = getStatValue(stats[1].team.id, stat.key);
-                const total = Number(homeValue) + Number(awayValue);
-                const homePercentage = total > 0 ? (Number(homeValue)) / total * 100 : 50;
+            {STATS_CONFIG.map(({ key, name, isPercentage }) => {
+                const homeValue = getStatValue(homeStats, key);
+                const awayValue = getStatValue(awayStats, key);
+
+                // Converter valores para números (removendo % se necessário)
+                const homeNum = parseFloat(homeValue) || 0;
+                const awayNum = parseFloat(awayValue) || 0;
+                const total = homeNum + awayNum || 1; // Evita divisão por zero
+
+                const homePercentage = (homeNum / total) * 100;
+                const awayPercentage = (awayNum / total) * 100;
 
                 return (
-                    <StatRow key={stat.key}>
-                        <StatValue>{homeValue}</StatValue>
-                        <StatBar $direction="left">
+                    <StatRow key={key}>
+                        <StatValue>{isPercentage ? `${homeNum}%` : homeValue}</StatValue>
+                        <StatBar>
                             <div style={{ width: `${homePercentage}%` }} />
                         </StatBar>
-                        <StatName>{stat.name}</StatName>
-                        <StatBar $direction="right">
-                            <div style={{ width: `${100 - homePercentage}%` }} />
+                        <StatName>{name}</StatName>
+                        <StatBar $reverse>
+                            <div style={{ width: `${awayPercentage}%` }} />
                         </StatBar>
-                        <StatValue>{awayValue}</StatValue>
+                        <StatValue>{isPercentage ? `${awayNum}%` : awayValue}</StatValue>
                     </StatRow>
                 );
             })}

@@ -36,3 +36,8 @@ export const StatBar = styled.div`
     background-color: ${({ theme }) => theme.colors.primary};
   }
 `;
+export const NoStatsMessage = styled.div`
+  text-align: center;
+  padding: ${({ theme }) => theme.spacing.lg};
+  color: ${({ theme }) => theme.colors.textSecondary};
+`;
