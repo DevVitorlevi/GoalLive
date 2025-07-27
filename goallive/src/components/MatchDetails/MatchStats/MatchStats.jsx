@@ -9,29 +9,29 @@ import {
 } from './MatchStatsStyle';
 
 const STATS_CONFIG = [
-    { key: 'ball_possession', name: 'Posse de Bola', isPercentage: true },
-    { key: 'total_shots', name: 'Finalizações' },
-    { key: 'shots_on_goal', name: 'Finalizações no Gol' },
-    { key: 'shots_off_goal', name: 'Finalizações para Fora' },
-    { key: 'shots_blocked', name: 'Finalizações Bloqueadas' },
-    { key: 'corner_kicks', name: 'Escanteios' },
-    { key: 'fouls', name: 'Faltas' },
-    { key: 'yellow_cards', name: 'Cartões Amarelos' },
-    { key: 'red_cards', name: 'Cartões Vermelhos' }
+    { key: 'Ball Possession', name: 'Posse de Bola', isPercentage: true },
+    { key: 'Total Shots', name: 'Finalizações' },
+    { key: 'Shots on Goal', name: 'Finalizações no Gol' },
+    { key: 'Shots off Goal', name: 'Finalizações para Fora' },
+    { key: 'Blocked Shots', name: 'Finalizações Bloqueadas' },
+    { key: 'Corner Kicks', name: 'Escanteios' },
+    { key: 'Fouls', name: 'Faltas' },
+    { key: 'Yellow Cards', name: 'Cartões Amarelos' },
+    { key: 'Red Cards', name: 'Cartões Vermelhos' }
 ];
 
 const MatchStats = ({ stats }) => {
-    if (!stats || stats.length !== 2 || !stats[0].statistics || !stats[1].statistics) {
+    if (!stats || stats.length !== 2) {
         return <NoStatsMessage>Estatísticas não disponíveis para esta partida</NoStatsMessage>;
     }
 
-    const getStatValue = (teamStats, statKey) => {
-        const stat = teamStats.statistics.find(s => s.type === statKey);
-        if (!stat) return '0';
-        return stat.value;
-    };
-
     const [homeStats, awayStats] = stats;
+
+    const getStatValue = (teamStats, statKey) => {
+        if (!Array.isArray(teamStats.statistics)) return '0';
+        const stat = teamStats.statistics.find(s => s.type === statKey);
+        return stat?.value ?? '0';
+    };
 
     return (
         <StatsContainer>
@@ -39,11 +39,10 @@ const MatchStats = ({ stats }) => {
                 const homeValue = getStatValue(homeStats, key);
                 const awayValue = getStatValue(awayStats, key);
 
-                // Converter valores para números (removendo % se necessário)
-                const homeNum = parseFloat(homeValue) || 0;
-                const awayNum = parseFloat(awayValue) || 0;
-                const total = homeNum + awayNum || 1; // Evita divisão por zero
+                const homeNum = parseFloat(homeValue.toString().replace('%', '')) || 0;
+                const awayNum = parseFloat(awayValue.toString().replace('%', '')) || 0;
 
+                const total = homeNum + awayNum || 1;
                 const homePercentage = (homeNum / total) * 100;
                 const awayPercentage = (awayNum / total) * 100;
 

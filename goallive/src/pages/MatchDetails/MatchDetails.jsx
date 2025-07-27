@@ -17,16 +17,20 @@ import { MatchDetailsContainer, MatchTabs, Tab } from './MatchDetailsStyle';
 
 const MatchDetails = () => {
     const { id } = useParams();
+
     const [match, setMatch] = useState(null);
-    const [stats, setStats] = useState(null);
-    const [events, setEvents] = useState(null);
-    const [lineups, setLineups] = useState(null);
+    const [stats, setStats] = useState([]);
+    const [events, setEvents] = useState([]);
+    const [lineups, setLineups] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [activeTab, setActiveTab] = useState('stats');
 
     useEffect(() => {
         const fetchMatchData = async () => {
+            setLoading(true);
+            setError(null);
+
             try {
                 const [matchData, statsData, eventsData, lineupsData] = await Promise.all([
                     getMatchDetails(id),
@@ -35,16 +39,16 @@ const MatchDetails = () => {
                     getMatchLineups(id)
                 ]);
 
-                // Verificação adicional dos dados
-                if (!matchData || !statsData || !lineupsData) {
-                    throw new Error('Dados incompletos da partida');
-                }
+                // Garantir dados válidos
+                if (!matchData) throw new Error('Detalhes da partida ausentes');
+                if (!Array.isArray(statsData)) throw new Error('Estatísticas não disponíveis');
+                if (!Array.isArray(lineupsData)) throw new Error('Escalações não disponíveis');
 
                 setMatch(matchData);
                 setStats(statsData);
-                setEvents(eventsData);
+                setEvents(eventsData || []);
 
-                // Garantir que as escalações tenham a estrutura correta
+                // Normalização segura para as escalações
                 const formattedLineups = lineupsData.map(team => ({
                     ...team,
                     startXI: team.startXI || [],
@@ -52,9 +56,10 @@ const MatchDetails = () => {
                 }));
 
                 setLineups(formattedLineups);
-                setLoading(false);
             } catch (error) {
-                setError(error.message);
+                console.error('Erro ao buscar dados da partida:', error);
+                setError(error.message || 'Erro desconhecido');
+            } finally {
                 setLoading(false);
             }
         };
@@ -71,22 +76,13 @@ const MatchDetails = () => {
             <MatchHeader match={match} />
 
             <MatchTabs>
-                <Tab
-                    $active={activeTab === 'stats'}
-                    onClick={() => setActiveTab('stats')}
-                >
+                <Tab $active={activeTab === 'stats'} onClick={() => setActiveTab('stats')}>
                     Estatísticas
                 </Tab>
-                <Tab
-                    $active={activeTab === 'lineups'}
-                    onClick={() => setActiveTab('lineups')}
-                >
+                <Tab $active={activeTab === 'lineups'} onClick={() => setActiveTab('lineups')}>
                     Escalações
                 </Tab>
-                <Tab
-                    $active={activeTab === 'events'}
-                    onClick={() => setActiveTab('events')}
-                >
+                <Tab $active={activeTab === 'events'} onClick={() => setActiveTab('events')}>
                     Linha do Tempo
                 </Tab>
             </MatchTabs>

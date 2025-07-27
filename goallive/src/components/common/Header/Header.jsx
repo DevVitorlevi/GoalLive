@@ -8,9 +8,6 @@ const Header = () => {
     return (
         <HeaderContainer>
             <Logo onClick={() => navigate('/')}>GOALLIVE</Logo>
-            <Nav>
-                <button onClick={() => navigate('/')}>Today's Matches</button>
-            </Nav>
         </HeaderContainer>
     );
 };
