@@ -17,11 +17,17 @@
 
 ## 🧑‍💻 Stack utilizada
 
-- **ReactJS**
-- **Styled-Components** (estilização)
-- **Axios** (requisições HTTP)
-- **React Router DOM** (navegação entre jogos e tabela)
-- **API-Football by API-Sports** (dados de jogos e classificação)
+| Tecnologia             | Descrição                                                  |
+|------------------------|------------------------------------------------------------|
+| **ReactJS**            | Biblioteca JavaScript para construção da interface         |
+| **Styled-Components**  | Biblioteca para estilização CSS-in-JS em componentes React |
+| **Axios**              | Cliente HTTP para requisições à API                        |
+| **React Router DOM**   | Gerenciamento de rotas no frontend                         |
+| **API-Football**       | API utilizada para obter dados de jogos   |
+| **Postman**            | Ferramenta para testar rotas e requisições da API          |
+| **dotenv**             | Gerenciador de variáveis de ambiente no backend            |
+
+
 
 ---
 
