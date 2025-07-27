@@ -19,7 +19,7 @@
 
 ## 🧑‍💻 Stack utilizada
 
-- **React + TypeScript**
+- **ReactJS**
 - **Styled-Components** (estilização)
 - **Axios** (requisições HTTP)
 - **React Router DOM** (navegação entre jogos e tabela)
